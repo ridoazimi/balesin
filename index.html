@@ -1,0 +1,1178 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Balesin - AI Customer Service WhatsApp untuk UMKM</title>
+<meta name="description" content="Balesin, AI customer service untuk WhatsApp toko online dan UMKM.">
+<link rel="icon" href="img/logo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --blue:#4682B4; --blue-d:#2F6896; --navy:#122B40; --navy2:#214173;
+  --text:#373E44; --panel:#F5F8FF; --amber:#F5A623; --red:#D9534F;
+  --line:#DDD; --wa:#2E9E5B; --wa-d:#247F48;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:Inter,system-ui,-apple-system,"Segoe UI",sans-serif;color:var(--text);background:#fff;font-size:16px;line-height:1.6;overflow-x:hidden}
+h1,h2,h3,h4{font-family:Poppins,system-ui,sans-serif;font-weight:700;color:var(--navy);line-height:1.25}
+p{margin-bottom:12px}
+a{color:inherit}
+img{max-width:100%;display:block}
+button,input,select,textarea{font:inherit;color:inherit}
+section[id]{scroll-margin-top:72px}
+:focus-visible{outline:3px solid var(--navy2);outline-offset:2px}
+.wrap{max-width:1100px;margin:0 auto;padding:0 20px}
+.hidden{display:none!important}
+
+/* buttons */
+.btn{display:inline-block;padding:12px 26px;border-radius:999px;border:2px solid var(--blue);background:transparent;color:var(--blue);font-weight:600;cursor:pointer;text-decoration:none;text-align:center;font-size:15px;line-height:1.3}
+.btn:hover{background:var(--blue-d);border-color:var(--blue-d);color:#fff}
+
+.btn-solid{background:var(--blue);color:#fff}
+.btn-solid:hover{background:var(--blue-d);border-color:var(--blue-d);color:#fff}
+.btn-white{background:#fff;color:var(--blue);border-color:#fff;padding:14px 34px}
+.btn-white:hover{background:var(--panel);color:var(--blue-d);border-color:var(--panel)}
+.btn-wa{background:var(--wa);border-color:var(--wa);color:#fff}
+.btn-wa:hover{background:var(--wa-d);border-color:var(--wa-d);color:#fff}
+.btn-block{display:block;width:100%}
+.link-btn{background:none;border:0;color:var(--blue);font-weight:600;font-size:14px;cursor:pointer;padding:6px}
+.link-btn:hover{color:var(--blue-d);text-decoration:underline}
+
+/* header */
+.hdr{background:var(--blue);color:#fff;position:sticky;top:0;z-index:50}
+.hdr-in{max-width:1100px;margin:0 auto;padding:10px 20px;display:flex;align-items:center;position:relative;min-height:64px}
+.logo{display:inline-flex}
+.logo img{height:36px;width:auto}
+.nav{list-style:none;display:flex;gap:6px;margin-left:auto;margin-right:8px}
+.nav a{color:#fff;text-decoration:none;padding:8px 14px;border-radius:999px;font-weight:500;font-size:15px;display:block}
+.nav a:hover{background:rgba(255,255,255,.12)}
+.nav a.active{background:rgba(255,255,255,.22)}
+.burger{display:none;background:none;border:0;color:#fff;width:40px;height:40px;cursor:pointer;align-items:center;justify-content:center;border-radius:8px}
+.cart-btn{position:relative;color:#fff;width:40px;height:40px;display:flex;align-items:center;justify-content:center;margin-left:16px;border-radius:8px;text-decoration:none}
+.cart-btn:hover{background:rgba(255,255,255,.12)}
+.badge{position:absolute;top:0;right:0;background:var(--red);color:#fff;font-size:11px;font-weight:700;min-width:18px;height:18px;border-radius:9px;display:flex;align-items:center;justify-content:center;padding:0 4px}
+.badge[hidden]{display:none}
+.drawer{display:none;background:var(--blue);border-top:1px solid rgba(255,255,255,.25);padding:4px 20px 12px}
+.drawer.open{display:block}
+.drawer a{display:block;color:#fff;text-decoration:none;padding:12px 4px;border-bottom:1px solid rgba(255,255,255,.22);font-weight:500}
+.drawer a.active{font-weight:700}
+
+/* hero */
+.hero{position:relative;background:var(--blue) url("img/hero.jpg") center/cover no-repeat;color:#fff;text-align:center;padding:96px 20px}
+.hero::before{content:"";position:absolute;inset:0;background:rgba(70,130,180,.86)}
+
+.hero-in{position:relative;max-width:820px;margin:0 auto}
+.hero h1{color:#fff;text-transform:uppercase;font-size:clamp(28px,4.4vw,46px);font-weight:800;margin-bottom:18px}
+.hero p{font-size:18px;margin-bottom:30px}
+
+/* sections */
+.sec{padding:72px 0}
+.sec-blue{background:var(--blue);color:#fff}
+.sec-blue h2{color:#fff}
+.sec-title{text-align:center;font-size:clamp(24px,3vw,32px);margin-bottom:40px}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:center}
+.two > img{border-radius:16px;width:100%}
+.two h2{font-size:clamp(24px,2.8vw,30px);margin-bottom:0}
+.bar{width:56px;height:4px;background:var(--blue);border-radius:2px;margin:14px 0 22px}
+.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+.note{font-size:14px;color:var(--navy2);margin-bottom:24px}
+.row-head{display:flex;justify-content:space-between;align-items:flex-end;gap:16px;margin-bottom:32px;flex-wrap:wrap}
+.row-head h2{font-size:clamp(24px,3vw,32px);margin:0}
+.row-head a{color:var(--blue);font-weight:600;text-decoration:none}
+.row-head a:hover{text-decoration:underline}
+
+/* package card */
+.pkg{position:relative;background:#fff;border-radius:16px;padding:18px;color:var(--text);display:flex;flex-direction:column;text-align:center}
+.pkg > a.img{display:block}
+.pkg img{border-radius:12px;aspect-ratio:4/3;object-fit:cover;width:100%;margin-bottom:16px}
+.pkg h3{font-size:19px;margin-bottom:10px}
+.pkg .feat{font-size:14px;margin-bottom:18px;flex:1}
+.pkg .acts{display:flex;flex-direction:column;gap:6px;align-items:center}
+.pkg .acts .btn{width:100%}
+.tag{position:absolute;top:26px;right:26px;background:var(--blue);color:#fff;font-size:12px;font-weight:600;padding:4px 12px;border-radius:999px}
+
+/* testimonials */
+.testi{background:#fff;color:var(--text);border-radius:16px;padding:24px}
+
+.stars{color:var(--amber);letter-spacing:2px;font-size:18px;margin-bottom:10px}
+.testi .q{font-style:italic;margin-bottom:14px}
+.testi .nm{font-weight:700;color:var(--navy);margin-bottom:0}
+
+/* steps */
+.steps{list-style:none;counter-reset:s;margin-bottom:22px}
+.steps li{counter-increment:s;position:relative;padding-left:44px;margin-bottom:14px;min-height:30px}
+.steps li::before{content:counter(s);position:absolute;left:0;top:0;width:30px;height:30px;border-radius:50%;background:var(--blue);color:#fff;font-weight:700;display:flex;align-items:center;justify-content:center;font-size:14px}
+
+/* policy and posts */
+.pol{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:24px}
+.pol h3{font-size:18px;margin-bottom:10px}
+.pol p{font-size:15px;margin-bottom:0}
+.post{display:block;background:#fff;border-radius:12px;overflow:hidden;border:1px solid #eee;text-decoration:none;color:var(--text)}
+.post img{aspect-ratio:16/10;object-fit:cover;width:100%}
+.post .bd{padding:18px}
+.post h3{font-size:17px;margin:8px 0}
+.post p{font-size:14px;margin-bottom:0}
+.post:hover h3{color:var(--blue-d)}
+.meta{font-size:12px;color:#888;margin-top:10px}
+.tag-grey{display:inline-block;background:#eee;color:#666;font-size:11px;padding:2px 8px;border-radius:4px}
+
+/* footer */
+.ftr{background:var(--blue);color:#fff;padding:56px 0 36px}
+.ftr-grid{display:grid;grid-template-columns:1.2fr 1fr 1.2fr;gap:40px}
+.ftr h4{color:#fff;font-size:16px;margin-bottom:14px}
+.ftr p{font-size:14px;margin-bottom:6px}
+.ftr ul{list-style:none}
+.ftr li{border-bottom:1px solid rgba(255,255,255,.25)}
+.ftr li a{display:block;padding:10px 0;color:#fff;text-decoration:none;font-size:14px}
+.ftr li a:hover{text-decoration:underline}
+.ftr form{display:flex;gap:8px;margin-bottom:16px}
+
+.ftr input{flex:1;min-width:0;padding:11px 14px;border-radius:8px;border:0;background:#fff;color:var(--text)}
+.sub{background:var(--navy);color:#fff;border:0;border-radius:8px;padding:11px 16px;cursor:pointer;font-weight:600}
+.sub:hover{background:#0b1d2c}
+.socials{display:flex;gap:10px}
+.socials a{width:38px;height:38px;border-radius:50%;background:rgba(255,255,255,.18);display:flex;align-items:center;justify-content:center;color:#fff}
+.socials a:hover{background:rgba(255,255,255,.3)}
+.bottom{background:#fff;padding:14px 20px;text-align:center;font-size:13px;color:#777}
+.bottom a{color:var(--blue);margin:0 8px}
+
+/* page common */
+.crumb{font-size:14px;color:#777;margin:20px 0}
+.crumb a{color:var(--blue);text-decoration:none}
+.crumb a:hover{text-decoration:underline}
+.page-title{font-size:clamp(26px,3vw,34px);margin:8px 0 12px}
+.page-sub{font-size:18px;color:var(--navy2);margin-bottom:28px}
+.h-sm{font-size:18px;margin-bottom:12px}
+.grid-pad{padding:8px 0 72px}
+.article{max-width:820px;margin:0 auto;padding:0 20px 72px}
+.article h2{font-size:22px;margin:28px 0 10px}
+.article ul{padding-left:22px;margin-bottom:14px}
+.article img{border-radius:12px;width:100%;margin:18px 0}
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:start}
+.info-list p{margin-bottom:8px}
+.info-list a{color:var(--blue);font-weight:600}
+.mini-cards{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin:28px 0}
+.mini-cards .box{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:22px}
+.mini-cards .box h3{font-size:18px;margin-bottom:8px}
+.map{width:100%;height:320px;border:0;border-radius:12px}
+.empty{text-align:center;padding:60px 0 80px}
+.empty p{margin-bottom:20px}
+
+/* product detail */
+
+.pd{display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:start}
+.pd-img img{border-radius:16px;width:100%;aspect-ratio:4/3;object-fit:cover}
+.pd h1{font-size:clamp(22px,2.6vw,28px);margin-bottom:8px}
+.sku{font-size:14px;color:#777;margin-bottom:14px}
+.price{font-family:Poppins,sans-serif;font-size:30px;font-weight:700;color:var(--blue);margin-bottom:18px}
+.qty{display:inline-flex;align-items:center;border:1px solid var(--line);border-radius:8px;overflow:hidden;margin-bottom:18px;background:#fff}
+.qty button{width:40px;height:40px;border:0;background:#fff;cursor:pointer;font-size:18px;color:var(--navy)}
+.qty button:hover{background:var(--panel)}
+.qty span{min-width:44px;text-align:center;font-weight:600;color:var(--navy)}
+.pd .acts{display:flex;flex-direction:column;gap:10px;max-width:360px}
+.pd .acts .btn{width:100%}
+.pd h3{font-size:17px;margin:26px 0 8px}
+.cat{font-size:14px;margin-top:20px}
+.desc{margin-top:48px;max-width:820px}
+.desc h2{font-size:22px;margin-bottom:14px}
+.desc ul{padding-left:22px;margin:8px 0 16px}
+.related{margin-top:56px}
+.related h2{font-size:22px;margin-bottom:24px}
+
+/* cart */
+.layout2{display:grid;grid-template-columns:1.6fr 1fr;gap:32px;align-items:start}
+.ci{display:grid;grid-template-columns:90px 1fr auto;gap:16px;align-items:center;padding:18px 0;border-bottom:1px solid #eee}
+.ci img{width:90px;height:70px;object-fit:cover;border-radius:8px}
+.ci h3{font-size:16px;margin-bottom:6px}
+.ci .unit{color:var(--blue);font-weight:600;font-size:15px;margin-bottom:8px}
+.ci .sub-amt{font-weight:700;color:var(--navy);white-space:nowrap}
+.ci .rm{background:none;border:0;color:var(--red);cursor:pointer;font-size:14px;margin-top:8px;padding:0}
+.ci .rm:hover{text-decoration:underline}
+.box{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:22px}
+.sumlist{list-style:none;margin-bottom:12px}
+.sumlist li{display:flex;justify-content:space-between;gap:12px;padding:6px 0;font-size:15px}
+.sum{display:flex;justify-content:space-between;gap:12px;font-size:18px;font-weight:700;color:var(--navy);padding:14px 0 6px;border-top:1px solid var(--line);margin-top:6px}
+
+.box .btn{width:100%;margin-top:10px}
+
+/* forms */
+.fg{margin-bottom:16px;border:0}
+.fg label{display:block;font-weight:600;color:var(--navy);margin-bottom:6px;font-size:14px}
+.fg legend{font-weight:600;color:var(--navy);margin-bottom:8px;font-size:14px;padding:0}
+.fg input,.fg textarea,.fg select{width:100%;padding:11px 13px;border:1px solid #bbb;border-radius:8px;background:#fff;font-size:15px}
+.fg input[type=radio],.fg input[type=checkbox]{width:auto;padding:0;border:0;margin-top:4px;flex:none}
+.fg input:focus,.fg textarea:focus,.fg select:focus{outline:2px solid var(--blue);outline-offset:0;border-color:var(--blue)}
+.fg .err{display:none;color:var(--red);font-size:13px;margin-top:4px}
+.fg.bad input,.fg.bad select,.fg.bad textarea{border-color:var(--red)}
+.fg.bad .err{display:block}
+.fg .radio{display:flex;align-items:flex-start;gap:10px;padding:12px;border:1px solid #bbb;border-radius:8px;margin-bottom:8px;cursor:pointer;font-weight:400;color:var(--text);font-size:15px}
+.fg .radio:has(input:checked){border-color:var(--blue);background:var(--panel)}
+.fg .check{display:flex;gap:10px;align-items:flex-start;font-weight:400;color:var(--text);font-size:14px}
+.fg .check a{color:var(--blue)}
+.small{font-size:13px;color:#777;margin-top:10px;text-align:center}
+.payqr{width:180px;height:180px;border:2px dashed #bbb;display:flex;align-items:center;justify-content:center;color:#888;font-weight:700;font-size:20px;margin:10px 0;border-radius:8px;background:#fff}
+.code{font-family:Poppins,sans-serif;font-size:22px;font-weight:700;color:var(--blue);letter-spacing:1px;margin-bottom:6px}
+
+/* sticky bottom bar (mobile) */
+.sticky-bar{display:none}
+@media (max-width:768px){
+  body.has-sticky{padding-bottom:84px}
+  .sticky-bar{display:flex;position:fixed;left:0;right:0;bottom:0;background:#fff;border-top:1px solid #ddd;padding:10px 16px;align-items:center;gap:12px;z-index:40}
+  .sticky-bar .t{flex:1;font-size:13px;color:#777}
+  .sticky-bar .t b{display:block;font-family:Poppins,sans-serif;color:var(--navy);font-size:16px}
+  .sticky-bar .btn{padding:11px 18px;white-space:nowrap}
+}
+
+/* floating WhatsApp */
+.wa-fab{position:fixed;right:20px;bottom:24px;width:56px;height:56px;border-radius:50%;background:var(--wa);color:#fff;display:flex;align-items:center;justify-content:center;z-index:45;box-shadow:0 4px 12px rgba(0,0,0,.2)}
+
+.wa-fab:hover{background:var(--wa-d)}
+@media (max-width:768px){ body.has-sticky .wa-fab{bottom:96px} }
+
+/* toast */
+.toast{position:fixed;left:50%;bottom:30px;transform:translate(-50%,20px);background:var(--navy);color:#fff;padding:12px 20px;border-radius:999px;opacity:0;transition:opacity .25s,transform .25s;pointer-events:none;z-index:60;font-size:14px;white-space:nowrap;max-width:90vw;overflow:hidden;text-overflow:ellipsis}
+.toast.show{opacity:1;transform:translate(-50%,0)}
+
+/* responsive */
+@media (max-width:860px){
+  .two,.pd,.layout2,.ftr-grid,.two-col{grid-template-columns:1fr}
+  .two > img{order:-1}
+  .hero{padding:72px 20px}
+  .sec{padding:56px 0}
+  .cards{grid-template-columns:1fr 1fr}
+}
+@media (max-width:640px){
+  .cards{grid-template-columns:1fr}
+  .mini-cards{grid-template-columns:1fr}
+  .burger{display:flex}
+  .nav{display:none}
+  .logo{position:absolute;left:50%;transform:translateX(-50%)}
+  .cart-btn{margin-left:auto}
+  .hdr-in{padding:8px 16px}
+  .ci{grid-template-columns:72px 1fr;gap:12px}
+  .ci img{width:72px;height:60px}
+  .ci .sub-amt{grid-column:2}
+  .ftr form{flex-direction:column}
+  .ftr .sub{width:100%}
+  .pkg .acts .btn{width:100%}
+  .wrap{padding:0 16px}
+}
+@media (max-width:360px){
+
+  .hero h1{font-size:24px}
+}
+</style>
+</head>
+<body>
+
+<header class="hdr" id="hdr">
+  <div class="hdr-in">
+    <button class="burger" id="burger" aria-label="Buka menu" aria-expanded="false" aria-controls="drawer">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
+    </button>
+    <a class="logo" href="#/" aria-label="Balesin, beranda"><img src="img/logo.png" alt="Balesin" height="36"></a>
+    <nav aria-label="Menu utama">
+      <ul class="nav">
+        <li><a href="#/" data-r="home">Beranda</a></li>
+        <li><a href="#/tentang" data-r="tentang">Tentang Kami</a></li>
+        <li><a href="#/tips" data-r="tips">Tips</a></li>
+        <li><a href="#/kontak" data-r="kontak">Kontak</a></li>
+      </ul>
+    </nav>
+    <a class="cart-btn" href="#/keranjang" aria-label="Keranjang belanja">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 4h2l2.4 10.2a2 2 0 0 0 2 1.6h7.6a2 2 0 0 0 2-1.5L21 8H6"/><circle cx="10" cy="20" r="1.3"/><circle cx="17" cy="20" r="1.3"/></svg>
+      <span class="badge" id="cartBadge" hidden>0</span>
+    </a>
+  </div>
+  <nav class="drawer" id="drawer" aria-label="Menu mobile">
+    <a href="#/" data-r="home">Beranda</a>
+    <a href="#/tentang" data-r="tentang">Tentang Kami</a>
+    <a href="#/tips" data-r="tips">Tips</a>
+    <a href="#/kontak" data-r="kontak">Kontak</a>
+  </nav>
+</header>
+
+
+<main id="main"></main>
+
+<footer class="ftr">
+  <div class="wrap ftr-grid">
+    <div>
+      <img src="img/logo.png" alt="Balesin" height="36" style="margin-bottom:14px">
+      <p>Balesin - AI Customer Service untuk UMKM</p>
+      <p>Salatiga, Jawa Tengah</p>
+      <p>WhatsApp : 0822-7845-2926</p>
+      <p>Jam Operasional : 08.00 - 17.00 WIB</p>
+      <p>NIB : 2810260037451 (contoh)</p>
+      <p>Pembayaran : Transfer BCA / BRI / Mandiri, QRIS (DANA, OVO, GoPay, ShopeePay)</p>
+    </div>
+    <div>
+      <h4>Layanan Kami</h4>
+      <ul>
+        <li><a href="#/?s=paket">Paket &amp; Harga</a></li>
+        <li><a href="#/?s=testimoni">Testimoni</a></li>
+        <li><a href="#/?s=cara-kerja">Cara Kerja</a></li>
+        <li><a href="#/?s=kebijakan">Kebijakan &amp; Refund</a></li>
+        <li><a href="https://wa.me/6282278452926?text=Halo%20Balesin%2C%20saya%20mau%20konsultasi%20AI%20CS%20untuk%20toko%20saya" target="_blank" rel="noopener">Konsultasi Gratis</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Dapatkan Info Promo</h4>
+      <form id="newsForm">
+        <label for="newsEmail" class="hidden">Email</label>
+        <input id="newsEmail" name="email" type="email" placeholder="Email" required autocomplete="email">
+        <button class="sub" type="submit">Subscribe</button>
+      </form>
+      <div class="socials">
+
+        <a href="https://www.instagram.com/azzimi_" target="_blank" rel="noopener" aria-label="Instagram">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r=".8" fill="currentColor"/></svg>
+        </a>
+        <a href="https://wa.me/6282278452926" target="_blank" rel="noopener" aria-label="WhatsApp">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 3a9 9 0 0 0-7.8 13.5L3 21l4.6-1.2A9 9 0 1 0 12 3z"/></svg>
+        </a>
+        <a href="https://www.tiktok.com/@azzimi_" target="_blank" rel="noopener" aria-label="TikTok">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M14 3v11a3.5 3.5 0 1 1-3.5-3.5"/><path d="M14 3c.5 2.5 2.5 4 5 4"/></svg>
+        </a>
+      </div>
+    </div>
+  </div>
+</footer>
+<div class="bottom">
+  Copyright 2026 Balesin | Proyek E-Commerce Bisnis Digital UIN Salatiga
+  <a href="#/privasi">Kebijakan Privasi</a>
+  <a href="#/kukis">Kebijakan Kukis</a>
+</div>
+
+<a class="wa-fab" href="https://wa.me/6282278452926?text=Halo%20Balesin%2C%20saya%20mau%20konsultasi%20AI%20CS%20untuk%20toko%20saya" target="_blank" rel="noopener" aria-label="Chat WhatsApp Balesin">
+  <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 3a9 9 0 0 0-7.8 13.5L3 21l4.6-1.2A9 9 0 1 0 12 3z"/></svg>
+</a>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script>
+/* ===== DATA ===== */
+const WA = "6282278452926";
+const WA_KONSUL = "Halo Balesin, saya mau konsultasi AI CS untuk toko saya";
+const BANK = "BCA 0000000000 a.n. Balesin (contoh)";
+const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+const PHONE_RE = /^(08|62)\d{8,12}$/;
+
+const waLink = t => `https://wa.me/${WA}?text=${encodeURIComponent(t)}`;
+
+const PRODUCTS = [
+  {
+    id:"starter", name:"Balesin Paket Starter AI CS WhatsApp", label:"Starter", price:149000, sku:"BLS-STARTER",
+    img:"img/starter_1.jpg", card:"img/paket_starter.jpg",
+    feat:"1 nomor WhatsApp, 1.000 balasan AI per bulan, input katalog sampai 50 produk, laporan chat mingguan.",
+    short:"Paket awal untuk toko yang baru mulai. 1 nomor WhatsApp, 1.000 balasan AI per bulan, katalog sampai 50 produk.",
+    intro:"Paket Starter cocok untuk toko online dan UMKM yang baru mulai memakai AI untuk membalas chat WhatsApp.",
+    isi:["1 nomor WhatsApp toko","1.000 balasan AI per bulan","Input katalog sampai 50 produk","Laporan chat mingguan"],
+    cara:"Setelah pembayaran terverifikasi, tim kami menyiapkan AI sesuai daftar produk dan gaya bahasa toko Anda. Layanan aktif maksimal 1x24 jam kerja dan berlaku 30 hari."
+  },
+  {
+    id:"pro", name:"Balesin Paket Pro AI CS WhatsApp", label:"Pro", price:299000, sku:"BLS-PRO", tag:"Rekomendasi",
+    img:"img/pro.jpg", card:"img/paket_pro.jpg",
+    feat:"1 nomor WhatsApp, 5.000 balasan AI per bulan, katalog sampai 300 produk, cek ongkir otomatis, pengingat pembeli yang belum bayar.",
+    short:"Paket paling banyak dipilih. 1 nomor WhatsApp, 5.000 balasan AI per bulan, katalog sampai 300 produk, cek ongkir otomatis.",
+    intro:"Paket Pro untuk toko yang chat pembelinya sudah ramai setiap hari.",
+    isi:["1 nomor WhatsApp toko","5.000 balasan AI per bulan","Katalog sampai 300 produk","Cek ongkir otomatis","Pengingat pembeli yang belum bayar"],
+    cara:"Setelah pembayaran terverifikasi, AI aktif maksimal 1x24 jam kerja dan berlaku 30 hari."
+  },
+  {
+    id:"bisnis", name:"Balesin Paket Bisnis AI CS WhatsApp", label:"Bisnis", price:599000, sku:"BLS-BISNIS",
+    img:"img/bisnis.jpg", card:"img/paket_bisnis.jpg",
+    feat:"3 nomor WhatsApp, balasan tanpa batas wajar, katalog tanpa batas, dashboard tim CS, bantuan setup dari tim kami.",
+    short:"Untuk tim CS lebih dari satu orang. 3 nomor WhatsApp, balasan tanpa batas wajar, katalog tanpa batas, dashboard tim CS.",
+    intro:"Paket Bisnis untuk toko dengan beberapa admin CS atau beberapa nomor WhatsApp.",
+    isi:["3 nomor WhatsApp toko","Balasan AI tanpa batas wajar","Katalog tanpa batas","Dashboard tim CS","Bantuan setup dari tim kami"],
+    cara:"Setelah pembayaran terverifikasi, AI aktif maksimal 1x24 jam kerja dan berlaku 30 hari."
+  }
+];
+
+
+const TESTI = [
+  {s:5, q:"Dulu chat malam baru kebalas pagi. Sekarang pembeli langsung dapat jawaban stok dan ongkir, order malam ikut masuk.", n:"Rina, Toko Hijab Salatiga"},
+  {s:5, q:"Pertanyaan yang sama tiap hari sudah dijawab AI. Saya tinggal cek pesanan yang perlu konfirmasi.", n:"Bayu, Reseller Kopi Bubuk"},
+  {s:4, q:"Setup cuma sehari, tinggal kirim menu dan harga. Jawabannya sopan dan pakai bahasa toko saya.", n:"Sari, Katering Rumahan"}
+];
+
+const STEPS = [
+  "Kirim daftar produk, harga, dan aturan toko lewat form atau WhatsApp.",
+  "Tim kami menyiapkan AI sesuai gaya bahasa toko Anda.",
+  "Nomor WhatsApp toko dihubungkan lewat WhatsApp Business API resmi dari Meta.",
+  "AI mulai membalas, Anda pantau hasilnya dari laporan harian."
+];
+
+const POLICIES = [
+  {t:"Pengiriman & Aktivasi", x:"Balesin adalah layanan digital, tidak ada pengiriman barang. Setelah pembayaran terverifikasi, AI aktif di nomor WhatsApp toko maksimal 1x24 jam kerja. Kuota balasan berlaku 30 hari sejak aktivasi."},
+  {t:"Cara Pembayaran", x:"Pilih paket, klik Tambah ke Keranjang, lalu Checkout tanpa perlu daftar akun. Bayar lewat transfer BCA, BRI, Mandiri atau QRIS (DANA, OVO, GoPay, ShopeePay). Kirim bukti transfer lewat WhatsApp untuk verifikasi."},
+  {t:"Retur & Refund", x:"Garansi 7 hari: jika AI belum aktif atau tidak berjalan sesuai paket, dana kembali 100% dalam 3 hari kerja. Refund tidak berlaku bila kuota terpakai lebih dari 50%. Langganan bisa dihentikan lewat WhatsApp admin paling lambat 3 hari sebelum periode berikutnya."}
+];
+
+const POSTS = [{"slug": "5-menit", "title": "Balas chat dalam 5 menit, peluang closing naik", "excerpt": "Pembeli online jarang mau menunggu. Kecepatan balas chat sering jadi penentu mereka beli di toko Anda atau di toko sebelah.", "date": "16 Okt 2026", "img": "img/blog_5menit_wide.jpg", "blocks": [{"t": "p", "x": "Pembeli yang menghubungi toko online lewat WhatsApp jarang hanya menghubungi satu toko. Mereka biasanya membuka beberapa toko sekaligus, menanyakan hal yang sama, lalu memilih toko yang paling cepat memberi jawaban jelas. Dalam situasi seperti ini, kecepatan membalas chat bukan lagi soal sopan santun, melainkan bagian dari proses penjualan itu sendiri."}, {"t": "p", "x": "Pengalaman banyak pelaku UMKM menunjukkan pola yang mirip. Chat yang dibalas dalam beberapa menit cenderung berlanjut ke pertanyaan berikutnya, seperti ongkir dan cara bayar. Sebaliknya, chat yang baru dibalas satu sampai dua jam kemudian sering berhenti di balasan \"sudah beli di tempat lain, kak\". Pembeli tidak salah, mereka hanya ingin cepat."}, {"t": "h2", "x": "Kenapa chat sering telat dibalas"}, {"t": "p", "x": "Pemilik toko kecil umumnya mengerjakan semuanya sendiri: membalas chat, mengemas pesanan, belanja stok, sampai mengurus pengiriman. Saat sedang packing puluhan paket, HP jarang dipegang. Di luar jam kerja, seperti malam hari dan akhir pekan, chat menumpuk dan baru dibuka keesokan harinya. Padahal jam-jam tersebut justru waktu banyak orang bersantai sambil belanja online."}, {"t": "p", "x": "Selain soal waktu, sebagian besar pertanyaan sebenarnya berulang. \"Masih ada, kak?\", \"Ongkir ke Semarang berapa?\", \"Bisa COD?\" Pertanyaan semacam ini menyita waktu karena harus dijawab satu per satu, padahal jawabannya hampir selalu sama."}, {"t": "h2", "x": "Langkah yang bisa langsung dicoba"}, {"t": "p", "x": "Pertama, siapkan template jawaban untuk lima sampai sepuluh pertanyaan yang paling sering muncul. Simpan di fitur Balasan Cepat WhatsApp Business agar bisa dikirim hanya dengan beberapa ketukan. Kedua, cantumkan jam operasional dan informasi dasar seperti lokasi toko serta metode pembayaran di profil bisnis, sehingga pembeli bisa membaca sendiri sebelum bertanya."}, {"t": "p", "x": "Ketiga, atur pesan sambutan otomatis yang memberi kepastian, misalnya bahwa pesanan yang masuk malam hari akan diproses pagi berikutnya. Pembeli lebih sabar menunggu ketika tahu kapan akan dilayani. Keempat, untuk toko dengan volume chat tinggi, pertimbangkan asisten AI seperti Balesin yang dapat menjawab pertanyaan rutin selama 24 jam berdasarkan data produk toko, lalu meneruskan pertanyaan yang rumit kepada pemilik."}, {"t": "h2", "x": "Kesimpulan"}, {"t": "p", "x": "Membalas chat dengan cepat tidak harus berarti memegang HP sepanjang hari. Dengan template yang rapi, informasi profil yang lengkap, dan bantuan otomatisasi, toko kecil tetap bisa memberi respons yang cepat dan konsisten. Hasilnya, lebih sedikit pembeli yang pergi hanya karena terlalu lama menunggu jawaban."}]}, {"slug": "ai-vs-admin", "title": "AI CS atau admin manual: mana yang cocok untuk toko Anda?", "excerpt": "Perbandingan biaya dan kemampuan antara menggaji admin CS dan memakai AI CS untuk toko online skala kecil.", "date": "16 Okt 2026", "img": "img/blog_ai_vs_admin_wide.jpg", "blocks": [{"t": "p", "x": "Ketika jumlah chat mulai melebihi kemampuan pemilik toko untuk membalas sendiri, pilihan yang biasanya muncul ada dua: merekrut admin customer service atau memakai layanan AI CS. Keduanya punya kelebihan masing-masing, dan pilihan yang tepat sangat bergantung pada kondisi toko."}, {"t": "h2", "x": "Admin manual: fleksibel, tetapi terbatas jam kerja"}, {"t": "p", "x": "Admin manusia unggul dalam memahami konteks. Ia bisa membaca nada kesal pembeli, menangani komplain yang rumit, dan bernegosiasi. Untuk toko yang produknya butuh konsultasi panjang, misalnya produk custom, kehadiran admin manusia hampir tidak tergantikan."}, {"t": "p", "x": "Namun, ada biaya yang perlu dihitung. Gaji admin di kota menengah umumnya berada di kisaran satu setengah sampai tiga juta rupiah per bulan, belum termasuk perangkat, kuota, dan pelatihan. Admin juga punya jam kerja, sehingga chat malam hari dan hari libur tetap tidak terlayani kecuali menambah orang atau membayar lembur."}, {"t": "h2", "x": "AI CS: hemat dan selalu aktif, untuk pertanyaan rutin"}, {"t": "p", "x": "AI CS bekerja paling baik untuk pertanyaan yang jawabannya sudah pasti, seperti ketersediaan stok, harga, ongkir, dan cara pembayaran. Layanan seperti Balesin dibanderol mulai Rp149 ribu per bulan dan aktif 24 jam tanpa jeda. Respons yang diberikan juga konsisten karena mengikuti data produk dan aturan yang sudah ditetapkan pemilik toko."}, {"t": "p", "x": "Keterbatasannya ada pada kasus di luar kebiasaan. Komplain barang rusak, permintaan khusus, atau pembeli yang emosional tetap sebaiknya ditangani manusia. Karena itu, AI CS yang baik harus punya mekanisme eskalasi, yaitu meneruskan percakapan kepada pemilik ketika pertanyaan tidak bisa dijawab dengan yakin."}, {"t": "h2", "x": "Mana yang cocok?"}, {"t": "p", "x": "Untuk toko dengan puluhan chat per hari yang sebagian besar berisi pertanyaan berulang, AI CS biasanya lebih efisien sebagai lini pertama. Pemilik cukup menangani kasus yang dieskalasi. Untuk toko yang sudah besar, kombinasi keduanya sering menjadi pilihan terbaik: AI menangani pertanyaan rutin dan jam malam, sementara admin fokus pada komplain dan penjualan bernilai besar."}, {"t": "p", "x": "Cara paling aman untuk memutuskan adalah mencatat isi chat selama satu minggu. Jika lebih dari separuhnya berupa pertanyaan yang jawabannya selalu sama, itu tanda bahwa sebagian pekerjaan CS sudah bisa diotomatisasi."}]}, {"slug": "7-template", "title": "7 template jawaban chat yang wajib dimiliki toko online", "excerpt": "Kumpulan template jawaban untuk pertanyaan pembeli yang paling sering muncul di WhatsApp toko online.", "date": "16 Okt 2026", "img": "img/blog_template7_wide.jpg", "blocks": [{"t": "p", "x": "Sebagian besar chat yang masuk ke toko online sebenarnya berisi pertanyaan yang sama. Menyiapkan template jawaban membuat pemilik toko bisa membalas lebih cepat tanpa harus mengetik ulang, sekaligus menjaga agar informasi yang diberikan selalu konsisten. Berikut tujuh template yang sebaiknya dimiliki setiap toko."}, {"t": "h2", "x": "1. Sambutan awal"}, {"t": "p", "x": "\"Halo kak, terima kasih sudah menghubungi [nama toko]. Ada yang bisa kami bantu? Silakan sebutkan produk yang kakak cari ya.\" Template ini memberi kesan ramah dan langsung mengarahkan pembeli ke inti pertanyaan."}, {"t": "h2", "x": "2. Ketersediaan stok"}, {"t": "p", "x": "\"Untuk [nama produk] saat ini masih tersedia kak, ukuran/varian yang ready: [daftar]. Mau kami bantu buatkan pesanannya?\" Kalimat penutup berupa tawaran membantu mendorong pembeli ke langkah berikutnya."}, {"t": "h2", "x": "3. Informasi ongkir"}, {"t": "p", "x": "\"Ongkir ke [kota] via [kurir] sekitar Rp[nominal], estimasi tiba [x] hari. Boleh kirimkan alamat lengkapnya kak, nanti kami hitungkan totalnya.\" Mintalah alamat lengkap agar perhitungan akurat."}, {"t": "h2", "x": "4. Cara pembayaran"}, {"t": "p", "x": "\"Pembayaran bisa melalui transfer bank, e-wallet, atau QRIS. Setelah transfer, mohon kirimkan bukti pembayaran agar pesanan segera kami proses.\" Cantumkan nomor rekening atas nama yang jelas untuk menghindari keraguan pembeli."}, {"t": "h2", "x": "5. Konfirmasi pesanan"}, {"t": "p", "x": "\"Pesanan kakak sudah kami terima: [rincian]. Total Rp[nominal]. Paket akan dikirim [hari], nomor resi kami kirimkan setelahnya.\" Rincian tertulis mengurangi risiko salah kirim."}, {"t": "h2", "x": "6. Pesan di luar jam operasional"}, {"t": "p", "x": "\"Terima kasih sudah menghubungi kami. Saat ini di luar jam operasional (08.00 sampai 17.00 WIB). Pesan kakak akan kami balas paling lambat pukul 08.00 besok.\" Pembeli lebih tenang ketika mendapat kepastian waktu."}, {"t": "h2", "x": "7. Penanganan komplain"}, {"t": "p", "x": "\"Mohon maaf atas kendalanya kak. Boleh kirimkan foto atau video kondisi barang beserta nomor pesanannya? Kami cek dan berikan solusi secepatnya.\" Hindari nada membela diri, fokus pada penyelesaian."}, {"t": "p", "x": "Template di atas sebaiknya disesuaikan dengan gaya bahasa toko masing-masing. Jika volume chat sudah sangat tinggi, template yang sama dapat dijadikan dasar pengetahuan untuk asisten AI sehingga jawaban otomatis tetap terdengar seperti jawaban toko sendiri."}]}, {"slug": "katalog-ai", "title": "Cara menyiapkan katalog produk supaya mudah dibaca AI", "excerpt": "Langkah sederhana menyusun daftar produk, harga, dan aturan toko sebelum memasang AI customer service.", "date": "16 Okt 2026", "img": "img/chat.jpg", "blocks": [{"t": "p", "x": "Asisten AI untuk customer service hanya bisa menjawab sebaik data yang diberikan kepadanya. Jika katalog produk berantakan, AI akan ragu, memberi jawaban yang kurang tepat, atau terlalu sering meneruskan pertanyaan ke pemilik. Karena itu, menyiapkan katalog yang rapi adalah langkah paling penting sebelum mengaktifkan AI CS."}, {"t": "h2", "x": "Gunakan format tabel yang seragam"}, {"t": "p", "x": "Susun katalog dalam spreadsheet dengan kolom tetap, misalnya nama produk, varian, harga, stok, berat, dan keterangan singkat. Satu baris untuk satu varian. Hindari menggabungkan beberapa informasi dalam satu sel, seperti menulis \"merah/biru/hitam, M-L-XL\" sekaligus, karena format seperti ini sulit dibaca secara konsisten."}, {"t": "h2", "x": "Tulis nama produk seperti pembeli menyebutnya"}, {"t": "p", "x": "Pembeli jarang menyebut kode produk. Mereka menulis \"kaos hitam polos\" atau \"gamis motif bunga\". Tambahkan kolom kata kunci atau nama lain yang biasa dipakai pembeli, sehingga AI dapat mencocokkan pertanyaan dengan produk yang benar walaupun penulisannya berbeda."}, {"t": "h2", "x": "Lengkapi informasi yang sering ditanyakan"}, {"t": "p", "x": "Selain data produk, siapkan juga dokumen kebijakan toko: jam operasional, metode pembayaran, kurir yang tersedia, aturan retur, dan estimasi pengiriman. Bagian inilah yang paling sering ditanyakan pembeli, dan jawaban yang jelas akan langsung mengurangi beban chat."}, {"t": "h2", "x": "Perbarui stok secara rutin"}, {"t": "p", "x": "Jawaban \"masih ada\" untuk barang yang ternyata habis akan merusak kepercayaan pembeli. Tetapkan jadwal pembaruan stok, misalnya setiap pagi sebelum toko buka. Untuk toko dengan perputaran barang cepat, pembaruan dua kali sehari lebih aman."}, {"t": "h2", "x": "Tentukan batas yang harus dieskalasi"}, {"t": "p", "x": "Tuliskan secara jelas jenis pertanyaan yang tidak boleh dijawab AI, misalnya permintaan diskon khusus, komplain, atau pesanan dalam jumlah besar. Dengan batas ini, AI tahu kapan harus berhenti dan meneruskan percakapan kepada pemilik toko."}, {"t": "p", "x": "Katalog yang rapi tidak hanya membantu AI. Data yang tertata juga memudahkan pemilik membaca produk terlaris, memantau stok, dan menyiapkan promosi. Pekerjaan menyusunnya cukup dilakukan sekali di awal, lalu tinggal dirawat secara berkala."}]}];
+const LEGAL = {"privasi": [{"t": "h2", "x": "1. Prinsip dan tujuan"}, {"t": "p", "x": "Balesin (selanjutnya disebut juga dengan \"Website\" atau \"kami\") menyadari pentingnya data pribadi dan informasi lainnya terkait penggunaan layanan kami. Kami menerapkan transparansi dan akuntabilitas dalam pengumpulannya agar Anda (selanjutnya disebut dengan \"Pengguna\" atau \"Anda\") dapat memberikan kepercayaan kepada Website. Penggunaan atau pengungkapan dari informasi Anda akan dilakukan selaras dengan Peraturan Perlindungan Data Umum (GDPR) 2019 dan hukum terkait lainnya. Kebijakan privasi ini (selanjutnya disebut dengan \"Kebijakan\") disusun sebagai sarana untuk mengetahui detail mengenai cara pengumpulan informasi kami. Penggunaan atau pengungkapan data pribadi Anda (selanjutnya secara masing-masing atau secara keseluruhan disebut sebagai \"Proses\")."}, {"t": "h2", "x": "2. Pengumpulan dari Data Pribadi"}, {"t": "p", "x": "Data Pribadi adalah informasi mengenai seorang individu yang dapat diidentifikasi, baik secara langsung maupun tidak langsung. Kami hanya mengumpulkan data pribadi untuk melanjutkan proses transaksi Anda, pengolahan dan memudahkan proses dari penggunaan Website ini dan tujuan-tujuan lainnya yang sejauh diizinkan oleh hukum dan regulasi yang berlaku."}, {"t": "p", "x": "Tipe-tipe data pribadi"}, {"t": "p", "x": "Informasi Pribadi\t- Nama dan nama belakang"}, {"t": "li", "x": "Jenis kelamin"}, {"t": "li", "x": "Usia"}, {"t": "li", "x": "Tanggal lahir"}, {"t": "li", "x": "Nomor identitas"}, {"t": "li", "x": "Foto"}, {"t": "p", "x": "Informasi Kontak\t- Alamat surat-menyurat"}, {"t": "li", "x": "Alamat e-mail"}, {"t": "li", "x": "Nomor kontak, termasuk nomor telepon rumah dan nomor handphone)"}, {"t": "li", "x": "Akun sosial media seperti ID Line, akun Facebook, ID Facebook dan ID Google"}, {"t": "p", "x": "Informasi Finansial\t- Detail kartu debit/kredit, seperti nama depan-nama belakang pada kartu, tanggal kedaluwarsa kartu, nama bank penerbit kartu"}, {"t": "li", "x": "Akun bank"}, {"t": "li", "x": "Faktur pajak"}, {"t": "p", "x": "Informasi Teknis\t- IP Address"}, {"t": "li", "x": "MAC Address"}, {"t": "li", "x": "Jejak atau rekaman akses data dan perilaku pengguna website dari Session ID"}, {"t": "li", "x": "Tipe dan versi dari browser"}, {"t": "h2", "x": "3. Sumber data pribadi"}, {"t": "p", "x": "Kami mengumpulkan data pribadi Anda melalui cara-cara berikut ini:"}, {"t": "p", "x": "3.1 Registrasi keanggotaan dengan mengisi berbagai formulir, baik dokumen yang diunggah, pengisian formulir melalui website, media sosial, atau jalur lainnya"}, {"t": "li", "x": "Saat Anda melakukan pemesanan produk atau jasa"}, {"t": "li", "x": "Saat Anda mengisi informasi melalui formulir"}, {"t": "li", "x": "Saat Anda mengisi informasi melalui diskusi forum"}, {"t": "li", "x": "Saat Anda berkomunikasi, meminta informasi, memberikan komentar atau saran pada produk dan jasa kami"}, {"t": "li", "x": "Saat Anda memilih untuk menerima berita atau press rilis dari kami"}, {"t": "p", "x": "3.2 Pengumpulan data pribadi secara otomatis"}, {"t": "p", "x": "-  Saat Anda mengunjungi atau menggunakan website yang menggunakan Kukis (cookies) atau teknologi serupa untuk mengumpulkan informasi teknis mengenai detail penggunaan Anda"}, {"t": "li", "x": "Informasi yang didapat dari penggunaan jasa dan informasi yang terkait lainnya, seperti informasi mengenai akses perangkat layanan (IP Address dan MAC Address)"}, {"t": "p", "x": "3.3 Pengumpulan data Anda dari pihak ketiga yang secara hukum mengumpulkan dari sumber-sumber serupa atau sudah mendapatkan persetujuan dari subjek dari pemilik data pribadi untuk mengungkapkan informasi kepada kami, sebagai contoh dengan mengirimkan data pribadi Anda kepada kami untuk kepentingan penyediaan layanan dan operasi bisnis terkait."}, {"t": "h2", "x": "4. Prinsip dalam mengumpulkan data pribadi"}, {"t": "p", "x": "Dasar hukum dalam"}, {"t": "p", "x": "mengumpulkan informasi"}, {"t": "p", "x": "Pelaksanaan kontrak\tPelaksanaan kontrak penjualan antara pengendali data pribadi (kami) dengan subjek data pribadi (Anda) saat pembayaran, termasuk memberikan alamat pengiriman Anda kepada kami untuk pengiriman barang"}, {"t": "p", "x": "Persetujuan dari subjek data pribadi\tUntuk pengumpulan, penggunaan, atau pengungkapan informasi pribadi, kami memerlukan persetujuan Anda dengan menginformasikan tujuan pengumpulan, penggunaan, atau pengungkapan informasi pribadi sebelum atau saat meminta persetujuan, misalnya pengumpulan data pribadi yang bersifat sensitif, namun tidak memenuhi syarat untuk pengecualian hukum, presentasi dan promosi barang dan jasa, fasilitasi layanan, dan lainnya"}, {"t": "h2", "x": "5. Tujuan pengumpulan informasi"}, {"t": "p", "x": "Tujuan"}, {"t": "p", "x": "Untuk memfasilitasi penggunaan website dan penyediaan layanan\tKemudahan dari pemesanan, pengiriman, pengembalian dan penggantian produk"}, {"t": "p", "x": "Untuk menjawab pertanyaan dan menyediakan bantuan layanan kepada pelanggan\tMemberikan bantuan kepada pelanggan sehubungan dengan penyediaan layanan pemutakhiran informasi pelanggan dan mengajukan permintaan untuk melaksanakan hak atau menjawab aduan"}, {"t": "p", "x": "Untuk membangun dan meningkatkan kualitas layanan\tAnalisis dan pengembangan produk atau layanan yang lebih baik dan sesuai dengan kebutuhan pelanggan"}, {"t": "p", "x": "Untuk memberikan informasi tentang produk dan layanan atau promosi\tPengumpulan informasi tentang barang dan jasa untuk memberikan hak spesial, promosi, diskon, dan penawaran khusus tentang produk dan layanan toko kepada pelanggan melalui email, SMS, dan pos (bila kami memiliki persetujuan secara tersurat dari Anda)"}, {"t": "p", "x": "Untuk keperluan analisa data\tMenggunakan data pelanggan untuk menganalisis dan riset pasar agar dapat mengembangkan produk dan layanan lebih baik lagi"}, {"t": "p", "x": "Untuk mencegah, dan mendeteksi tindak kriminal\tAudit dan tindakan apa pun untuk mencegah dilakukannya pelanggaran berdasarkan undang-undang yang relevan, termasuk pelanggaran keamanan yang memengaruhi subjek data pribadi"}, {"t": "p", "x": "Kami dapat membagikan informasi pribadi Anda kepada publik, mitra kami, atau untuk tujuan pemasaran, analisis kinerja website, kegiatan promosi atau untuk menunjukkan tren tentang penggunaan umum produk dan layanan kami."}, {"t": "h2", "x": "6. Pengungkapan data pribadi kepada pihak luar"}, {"t": "p", "x": "Kami dapat mengungkapkan data pribadi sebagaimana diperlukan kepada entitas atau pihak ketiga dengan persetujuan subjek data pribadi, kecuali jika dilakukan dalam kerangka hukum:"}, {"t": "h2", "x": "1. Penyedia layanan transportasi"}, {"t": "h2", "x": "2. Penyedia layanan pembayaran"}, {"t": "h2", "x": "3. Penyedia layanan analisis data untuk riset dan pemasaran"}, {"t": "p", "x": "4. Pejabat pemerintah, lembaga pemerintah dengan pengawasan undang-undang atau meminta untuk mengungkapkan informasi pribadi berdasarkan hukum atau terkait dengan proses hukum atau diizinkan oleh hukum yang berlaku"}, {"t": "h2", "x": "7. Periode penyimpanan data pribadi"}, {"t": "p", "x": "Kami menyimpan data Anda hanya sejauh diwajibkan oleh hukum atau sebagaimana diperlukan sesuai tujuan pengumpulannya. Ketika data pribadi yang kami kumpulkan tidak lagi relevan untuk tujuan yang disebutkan, kami akan menghapusnya secara permanen."}, {"t": "h2", "x": "8. Keamanan data pribadi"}, {"t": "p", "x": "Kami menyadari pentingnya menjaga keamanan informasi pribadi Anda. Maka, kami mengambil langkah-langkah yang wajar untuk mencegah hilangnya akses, perusakan, penggunaan, perubahan, atau pengungkapan data pribadi yang melanggar hukum. Sertifikasi keamanan elektronik berdasarkan standar SSL (Security Socket Layer) yang disetujui untuk situs web oleh CA (Certificate Authority) dijaga dengan enkripsi untuk melindungi informasi seperti informasi pribadi, kata sandi, dan nomor kartu kredit."}, {"t": "h2", "x": "9. Hak dari subjek data pribadi"}, {"t": "h2", "x": "1. Hak untuk menarik kembali persetujuan"}, {"t": "p", "x": "Anda memiliki hak untuk menarik kembali persetujuan Anda kapan pun di mana kami sangat bergantung pada persetujuan Anda untuk memproses data pribadi Anda."}, {"t": "h2", "x": "2. Hak untuk mengakses data pribadi"}, {"t": "p", "x": "Anda berhak untuk meminta akses ke data pribadi Anda yang berada di bawah tanggung jawab kami dan meminta kami untuk membuat salinan informasi tersebut untuk Anda."}, {"t": "h2", "x": "3. Hak untuk pembetulan data pribadi"}, {"t": "p", "x": "Anda berhak meminta pengelolaan data pribadi agar selalu update dan lengkap. Jika Anda sudah menjadi anggota, Anda dapat mengubah informasi pribadi Anda di halaman detail anggota."}, {"t": "h2", "x": "4. Hak untuk menghapus data pribadi"}, {"t": "p", "x": "Anda memiliki hak untuk meminta penghapusan, pemusnahan, atau membuat data pribadi Anda menjadi tidak bisa diidentifikasi secara personal, ketika informasi tersebut tidak lagi dibutuhkan."}, {"t": "h2", "x": "5. Hak atas larangan untuk memproses"}, {"t": "p", "x": "Anda memiliki hak untuk menghentikan data pribadi yang sedang digunakan secara sementara ketika kami sedang dalam proses mengulas permintaan untuk memperbaiki data pribadi, atau hak untuk menyatakan keberatan atas pengumpulan, penggunaan atau pengungkapan dari data pribadi Anda."}, {"t": "h2", "x": "6. Hak atas portabilitas data"}, {"t": "p", "x": "Anda memiliki hak untuk memperoleh informasi pribadi Anda, kami membuat data dalam bentuk yang dapat dibaca atau digunakan secara umum dengan perangkat yang bekerja secara otomatis, termasuk hak untuk meminta transmisi atau transfer data tersebut ke pengontrol data lain."}, {"t": "h2", "x": "7. Hak untuk menyatakan keberatan"}, {"t": "p", "x": "Anda berhak untuk menolak pengumpulan, penggunaan, atau pengungkapan informasi pribadi Anda. Jika Anda memilih untuk menolak pengumpulan, untuk menghapus atau menghancurkan hak yang diberikan sebelumnya, perlu diingat jika hal itu dapat mempengaruhi layanan yang akan Anda terima dan kami mungkin tidak dapat memberikan beberapa layanan kepada Anda."}, {"t": "p", "x": "Anda dapat menggunakan hak Anda sebagai subjek data pribadi di atas, dengan menghubungi ridoazimi@gmail.com dan 082278452926, kami akan mempertimbangkan dan memberi tahu hasilnya dalam waktu 30 hari sejak tanggal kami menerima permintaan Anda."}, {"t": "h2", "x": "10. Melakukan koneksi ke website atau layanan eksternal"}, {"t": "p", "x": "Website kami bisa memuat link untuk ke website eksternal yang juga mungkin mengumpulkan informasi mengenai penggunaan layanan dan data pribadi Anda. Kami tidak bertanggungjawab atas keamanan atau pengumpulan data pribadi Anda oleh website eksternal tersebut. Anda harus mengulas kebijakan privasi dari pihak eksternal tersebut dan mematuhi kebijakan yang ditentukan oleh website eksternal tersebut."}, {"t": "p", "x": "11. Jika Anda menyatakan keberatan untuk setuju atau untuk tidak menggunakan data pribadi Anda"}, {"t": "p", "x": "Kami secara hukum berkewajiban untuk mengumpulkan informasi pribadi atau untuk membuat kontrak antara Anda dan kami. Jika Anda keberatan untuk menyetujui penggunaan data pribadi, Anda masih dapat menggunakan layanan kami. Hal ini mungkin membuat Anda kurang nyaman saat menggunakan layanan kami karena kami tidak memiliki persetujuan untuk menggunakan informasi pribadi Anda untuk tujuan sepenuhnya."}, {"t": "h2", "x": "12. Revisi atau perubahan terhadap Kebijakan Privasi ini"}, {"t": "p", "x": "Kebijakan Privasi ini dapat direvisi atau diubah sebagaimana mestinya untuk mematuhi Peraturan Perlindungan Data Umum (GDPR) atau undang-undang lain yang berlaku. Oleh karena itu, kami merekomendasikan untuk meninjau secara berkala perubahan pada Kebijakan Privasi ini."}, {"t": "h2", "x": "13. Kontak"}, {"t": "p", "x": "Jika Anda memiliki pertanyaan, saran atau ingin mengetahui lebih lanjut mengenai Kebijakan Privasi kami, silahkan hubungi:"}, {"t": "p", "x": "Manajemen Data Pribadi"}, {"t": "p", "x": "Email : ridoazimi@gmail.com"}, {"t": "p", "x": "Nomor telefon : 082278452926"}, {"t": "p", "x": "Hubungi kami via form di halaman Kontak"}, {"t": "h2", "x": "14. Menghapus akun pengguna"}, {"t": "p", "x": "Jika pengguna ingin menghapus akunnya, Anda dapat memberi tahu kami untuk proses penghapusan akun kapan saja, dengan mengirimkan email ke ridoazimi@gmail.com. Setelah menghapus akun pengguna, data pribadi Anda di server kami akan dihapus dan tidak dapat dipulihkan."}], "kukis": [{"t": "p", "x": "Website Balesin (selanjutnya disebut juga dengan \"Website\" atau \"kami\") menggunakan kukis (cookie) dan teknologi serupa (selanjutnya disebut dengan \"Kukis\") untuk membantu pengguna mendapatkan pengalaman layanan yang baik dan juga membantu kami untuk meningkatkan layanan dalam memenuhi kebutuhan pengguna. Ketika Anda mengakses website kami, kami peduli dengan perlindungan data pribadi Anda. Jika informasi yang dikumpulkan melalui penggunaan kukis dan teknologi lainnya bersifat data pribadi berdasarkan Peraturan Perlindungan Data Umum (GDPR), kami akan mengumpulkannya sebagaimana dirinci dalam Kebijakan Privasi kami."}, {"t": "p", "x": "1. Kukis (Cookies) adalah file kecil yang menyimpan informasi tentang kunjungan Anda ke website, seperti tanggal dan waktu kunjungan dan bagaimana Anda menggunakan website atau aplikasi seluler tertentu."}, {"t": "h2", "x": "2. Penggunaan kukis dan pengumpulan informasi"}, {"t": "p", "x": "Kami akan secara otomatis mengenali dan menyimpan informasi yang dikirim oleh browser Anda:"}, {"t": "li", "x": "IP Address komputer & MAC Address"}, {"t": "li", "x": "Jenis browser Anda"}, {"t": "li", "x": "Halaman yang Anda kunjungi atau ikuti di website kami"}, {"t": "li", "x": "Jumlah waktu yang Anda habiskan untuk menjelajahi halaman website kami, seperti halaman beranda, produk, layanan, atau kata kunci yang Anda cari di website, waktu dan tanggal kunjungan, dan informasi statistik lainnya"}, {"t": "p", "x": "Jenis informasi ini dikumpulkan untuk analisis dan evaluasi, untuk membantu studi perilaku pengguna secara keseluruhan, dan meningkatkan kualitas situs web menjadi lebih mudah, lebih cepat, dan lebih efisien untuk memenuhi kebutuhan Anda dengan lebih baik."}, {"t": "h2", "x": "3. Tipe-tipe Kukis"}, {"t": "p", "x": "Tipe Kukis"}, {"t": "p", "x": "1. Kukis yang Diperlukan (Strictly Necessary Cookies)\tTipe kukis ini sangat penting agar Anda dapat menjelajah website dan menggunakan fitur-fiturnya, seperti mengakses area-area yang aman di dalam website. Kukis ini membantu menyimpan produk di dalam keranjang belanja ketika Anda berbelanja online. Anda tidak bisa menonaktifkan kukis ini."}, {"t": "p", "x": "2. Kukis Kinerja (Performance Cookies)\tKukis tipe ini mengumpulkan informasi tentang bagaimana Anda menggunakan sebuah website, seperti halaman mana yang Anda kunjungi, tautan mana yang Anda klik, dan informasi statistik apa pun yang sesuai dengan minat dan perilaku Anda. Kami juga menggunakan informasi tersebut untuk memperbaiki dan meningkatkan fungsionalitas website agar lebih baik dan mudah diakses. Bagian dari informasi yang dikumpulkan kukis ini tidak dapat diidentifikasi secara pribadi."}, {"t": "p", "x": "3. Kukis Fungsional (Function Cookies)\tKukis ini memungkinkan website untuk mengingat pilihan Anda sebelumnya, seperti bahasa yang Anda pakai, detail login Anda, atau produk terakhir yang Anda lihat."}, {"t": "p", "x": "4. Kukis Penargetan (Targeting Cookies)\tKukis ini memungkinkan website untuk meningkatkan fitur fungsionalitas dan personalisasi. Kukis tipe ini dihubungkan dengan pihak ketiga untuk membuat profil minat Anda berdasarkan informasi penelusuran yang mereka kumpulkan dari Anda, seperti Google Analytics, Facebook Pixel, Tag LINE, dan Tiktok Pixel. Kukis ini melacak aktivitas online Anda untuk membantu pengiklan menayangkan iklan yang lebih relevan atau untuk membatasi berapa kali Anda melihat iklan."}, {"t": "p", "x": "Situs ini menggunakan berbagai jenis cookie. Beberapa cookie ditempatkan oleh layanan pihak ketiga yang muncul di halaman kami."}, {"t": "h2", "x": "4. Pengaturan dan penolakan kukis"}, {"t": "p", "x": "Anda bisa melakukan pengaturan terhadap kukis berdasarkan keinginan Anda dengan melakukan pengaturan pada browser atau pada bagian privasi untuk menghentikan informasi kukis di masa mendatang sehingga pengaturan privasi pada browser akan menolak kukisnya. Namun Anda mungkin menjadi tidak bisa menggunakan sebagian atau keseluruhan fungsi pada website kami."}, {"t": "p", "x": "Anda bisa melakukan pengaturan kukis pada browser Anda dengan mengikuti langkah-langkah berikut:"}, {"t": "li", "x": "Pengaturan kukis pada Chrome"}, {"t": "li", "x": "Pengaturan kukis pada Safari dan iOS"}, {"t": "li", "x": "Pengaturan kukis pada Internet Explorer"}, {"t": "li", "x": "Pengaturan kukis pada Microsoft Edge"}, {"t": "li", "x": "Pengaturan kukis pada Firefox"}, {"t": "li", "x": "Pengaturan kukis pada Opera"}, {"t": "h2", "x": "5. Hubungan ke website lain"}, {"t": "p", "x": "Website kami mungkin berisi tautan ke website pihak ketiga atau media sosial. Ini juga termasuk menyematkan konten atau video dari media sosial, seperti YouTube atau Facebook, di mana website atau media sosial pihak ketiga ini akan mengatur kukisnya sendiri. Kami tidak dapat mengontrol atau bertanggung jawab atas kukis tersebut. Anda harus merujuk ke masing-masing website tersebut untuk mendapatkan informasi tentang kebijakan privasi mereka."}, {"t": "h2", "x": "6. Pembaruan Kebijakan Kukis"}, {"t": "p", "x": "Kebijakan Kukis ini dapat direvisi atau diubah sebagaimana mestinya untuk mematuhi Peraturan Perlindungan Data Umum (GDPR) atau undang-undang lain yang berlaku. Oleh karena itu, kami merekomendasikan untuk meninjau secara berkala perubahan pada Kebijakan Kukis ini."}, {"t": "h2", "x": "7. Kontak"}, {"t": "p", "x": "Jika Anda memiliki pertanyaan, saran atau ingin mengetahui lebih lanjut mengenai Kebijakan Privasi kami, silahkan hubungi :"}, {"t": "p", "x": "Manajemen Data Pribadi"}, {"t": "p", "x": "Email : ridoazimi@gmail.com"}, {"t": "p", "x": "Nomor telefon : 082278452926"}, {"t": "p", "x": "Hubungi kami via form di halaman Kontak"}]};
+
+/* ===== HELPERS ===== */
+const fmt = n => "Rp" + String(Math.round(n)).replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const $ = (s, r = document) => r.querySelector(s);
+const $$ = (s, r = document) => Array.from(r.querySelectorAll(s));
+const byId = id => PRODUCTS.find(p => p.id === id);
+const findPost = slug => POSTS.find(p => p.slug === slug);
+const load = (k, d) => { try { const v = JSON.parse(localStorage.getItem(k)); return v ?? d; } catch { return d; } };
+const save = (k, v) => { try { localStorage.setItem(k, JSON.stringify(v)); } catch {} };
+const phoneOk = v => PHONE_RE.test(v);
+
+
+/* ===== CART ===== */
+function getCart(){
+  const c = load("balesin_cart", []);
+  if(!Array.isArray(c)) return [];
+  return c.filter(i => byId(i.id) && i.qty > 0).map(i => ({id:i.id, qty:Math.min(99, Math.floor(i.qty))}));
+}
+function setCart(c){ save("balesin_cart", c); updateBadge(); }
+function cartCount(c = getCart()){ return c.reduce((a, i) => a + i.qty, 0); }
+function cartTotal(c = getCart()){ return c.reduce((a, i) => a + byId(i.id).price * i.qty, 0); }
+function updateBadge(){
+  const n = cartCount();
+  const b = $("#cartBadge");
+  b.textContent = n;
+  b.hidden = n === 0;
+}
+function addToCart(id, qty = 1){
+  const c = getCart();
+  const it = c.find(i => i.id === id);
+  if(it) it.qty = Math.min(99, it.qty + qty);
+  else c.push({id, qty: Math.min(99, qty)});
+  setCart(c);
+  toast("Ditambahkan ke keranjang");
+}
+
+let tTimer;
+function toast(msg){
+  const t = $("#toast");
+  t.textContent = msg;
+  t.classList.add("show");
+  clearTimeout(tTimer);
+  tTimer = setTimeout(() => t.classList.remove("show"), 1800);
+
+}
+
+/* ===== ROUTING ===== */
+function parseRoute(){
+  const raw = location.hash.replace(/^#/, "") || "/";
+  const [path, qs = ""] = raw.split("?");
+  return {path: path.replace(/\/+$/, "") || "/", params: new URLSearchParams(qs)};
+}
+
+function render(keep = false){
+  const {path, params} = parseRoute();
+  const [a, b] = path.split("/").filter(Boolean);
+
+  $("#drawer").classList.remove("open");
+  $("#burger").setAttribute("aria-expanded", "false");
+
+  let html = "", active = "", scrollId = null, title = "Balesin", sticky = false;
+
+  if(!a){
+    html = pageHome(); active = "home"; scrollId = params.get("s");
+    title = "Balesin - AI Customer Service WhatsApp untuk UMKM";
+  } else if(a === "produk" && !b){
+    html = pageProducts(); title = "Pilihan Paket Balesin - Balesin";
+  } else if(a === "produk" && byId(b)){
+    html = pageDetail(byId(b)); sticky = true; title = byId(b).name + " - Balesin";
+  } else if(a === "keranjang"){
+    html = pageCart(); sticky = true; title = "Keranjang - Balesin";
+  } else if(a === "checkout"){
+    html = pageCheckout(); title = "Checkout - Balesin";
+  } else if(a === "selesai"){
+    html = pageDone(); title = "Pesanan - Balesin";
+  } else if(a === "tentang"){
+
+    html = pageAbout(); active = "tentang"; title = "Tentang Kami - Balesin";
+  } else if(a === "kontak"){
+    html = pageContact(); active = "kontak"; title = "Kontak - Balesin";
+  } else if(a === "tips" && !b){
+    html = pageTips(); active = "tips"; title = "Tips Jualan Online - Balesin";
+  } else if(a === "tips" && findPost(b)){
+    const p = findPost(b); html = pagePost(p); active = "tips"; title = p.title + " - Balesin";
+  } else if(a === "privasi"){
+    html = pageLegal("privasi", "Kebijakan Privasi"); title = "Kebijakan Privasi - Balesin";
+  } else if(a === "kukis"){
+    html = pageLegal("kukis", "Kebijakan Kukis"); title = "Kebijakan Kukis - Balesin";
+  } else {
+    location.hash = "#/"; return;
+  }
+
+  document.body.classList.toggle("has-sticky", sticky);
+  $("#main").innerHTML = html;
+  document.title = title;
+  $$("#hdr [data-r]").forEach(el => el.classList.toggle("active", el.dataset.r === active));
+
+  if(scrollId){
+    const el = document.getElementById(scrollId);
+    if(el) el.scrollIntoView({block:"start"}); else window.scrollTo(0, 0);
+  } else if(!keep){
+    window.scrollTo(0, 0);
+  }
+}
+
+/* ===== SHARED COMPONENTS ===== */
+function stars(n){ return "★".repeat(n) + "☆".repeat(5 - n); }
+
+function pkgCard(p){
+
+  return `
+  <article class="pkg">
+    ${p.tag ? `<span class="tag">${esc(p.tag)}</span>` : ""}
+    <a href="#/produk/${p.id}"><img src="${p.card}" alt="Paket ${esc(p.label)}" loading="lazy"></a>
+    <h3>${esc(p.label)} - ${fmt(p.price)}/bulan</h3>
+    <p class="feat">${esc(p.feat)}</p>
+    <div class="acts">
+      <a class="btn" href="#/produk/${p.id}">Pilih ${esc(p.label)}</a>
+      <button class="link-btn" data-add="${p.id}">+ Keranjang</button>
+    </div>
+  </article>`;
+}
+
+function postCard(p){
+  return `
+  <a class="post" href="#/tips/${esc(p.slug)}">
+    <img src="${esc(p.img)}" alt="${esc(p.title)}" loading="lazy">
+    <div class="bd">
+      <span class="tag-grey">News</span>
+      <h3>${esc(p.title)}</h3>
+      <p>${esc(p.excerpt)}</p>
+      <p class="meta">${esc(p.date)}</p>
+    </div>
+  </a>`;
+}
+
+function renderBlocks(bl){
+  let out = "", list = null;
+  (bl || []).forEach(b => {
+    if(b.t === "li"){
+      if(!list) list = [];
+      list.push(`<li>${esc(b.x)}</li>`);
+
+      return;
+    }
+    if(list){ out += `<ul>${list.join("")}</ul>`; list = null; }
+    const tag = b.t === "h2" ? "h2" : "p";
+    out += `<${tag}>${esc(b.x)}</${tag}>`;
+  });
+  if(list) out += `<ul>${list.join("")}</ul>`;
+  return out;
+}
+
+function emptyState(msg){
+  return `<div class="wrap empty"><p>${esc(msg)}</p><a class="btn btn-solid" href="#/produk">Lihat Paket</a></div>`;
+}
+
+function setErr(input, msg){
+  if(!input) return;
+  const g = input.closest(".fg");
+  if(!g) return;
+  const e = g.querySelector(".err");
+  if(msg){
+    g.classList.add("bad");
+    if(e) e.textContent = msg;
+    input.setAttribute("aria-invalid", "true");
+  } else {
+    g.classList.remove("bad");
+    if(e) e.textContent = "";
+    input.removeAttribute("aria-invalid");
+  }
+}
+
+/* ===== PAGES ===== */
+function pageHome(){
+
+  return `
+  <section class="hero">
+    <div class="hero-in">
+      <h1>CHAT PEMBELI DIBALAS DALAM HITUNGAN DETIK</h1>
+      <p>Asisten AI untuk WhatsApp toko online. Jawab stok, harga, ongkir, dan cara bayar 24 jam, termasuk malam dan akhir pekan.</p>
+      <a class="btn btn-white" href="#/produk/starter">Coba Gratis 7 Hari</a>
+    </div>
+  </section>
+
+  <section class="sec">
+    <div class="wrap two">
+      <div>
+        <h2>Banyak pembeli batal karena chat telat dibalas.</h2>
+        <div class="bar"></div>
+        <p>Pemilik toko online kecil biasanya membalas chat sendiri di sela packing dan belanja stok. Pertanyaan yang sama datang berulang: masih ada?, ongkir ke mana?, bisa COD? Saat chat baru dibalas besok paginya, pembeli sering sudah membeli di toko lain.</p>
+        <p>Balesin membaca katalog dan aturan toko Anda, lalu menjawab pembeli di WhatsApp dengan bahasa yang santai dan sopan. Pertanyaan yang tidak bisa dijawab AI, seperti komplain atau nego khusus, otomatis diteruskan ke Anda.</p>
+      </div>
+      <img src="img/fitur_eskalasi.jpg" alt="Ilustrasi balasan AI di WhatsApp toko online" loading="lazy">
+    </div>
+  </section>
+
+  <section class="sec sec-blue" id="paket" style="padding-bottom:40px">
+    <div class="wrap">
+      <h2 class="sec-title">Pilihan Paket Balesin</h2>
+      <div class="cards">${PRODUCTS.map(pkgCard).join("")}</div>
+    </div>
+  </section>
+
+  <section class="sec sec-blue" id="testimoni" style="padding-top:0">
+    <div class="wrap">
+      <h2 class="sec-title">Kata Pengguna Balesin</h2>
+      <div class="cards">
+
+        ${TESTI.map(t => `
+          <figure class="testi">
+            <div class="stars" aria-label="${t.s} dari 5 bintang">${stars(t.s)}</div>
+            <p class="q">“${esc(t.q)}”</p>
+            <p class="nm">${esc(t.n)}</p>
+          </figure>`).join("")}
+      </div>
+    </div>
+  </section>
+
+  <section class="sec" id="cara-kerja">
+    <div class="wrap two">
+      <img src="img/steps.jpg" alt="Langkah memasang Balesin" loading="lazy">
+      <div>
+        <h2>Aktif dalam 1 hari, tanpa perlu paham teknis.</h2>
+        <div class="bar"></div>
+        <ol class="steps">
+          ${STEPS.map(s => `<li>${esc(s)}</li>`).join("")}
+        </ol>
+        <p class="note">Promo mahasiswa dan UMKM binaan kampus: gratis 7 hari tanpa kartu kredit.</p>
+        <a class="btn btn-solid" href="#/produk/starter">Daftar Sekarang</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec" id="kebijakan" style="padding-top:0">
+    <div class="wrap">
+      <h2 class="sec-title">Kebijakan Pengiriman, Pembayaran &amp; Refund</h2>
+      <div class="cards">
+        ${POLICIES.map(p => `<article class="pol"><h3>${esc(p.t)}</h3><p>${esc(p.x)}</p></article>`).join("")}
+      </div>
+    </div>
+
+  </section>
+
+  <section class="sec" id="tips" style="padding-top:0">
+    <div class="wrap">
+      <div class="row-head">
+        <h2>Tips Jualan Online</h2>
+        <a href="#/tips">Lihat semua &gt;</a>
+      </div>
+      <div class="cards">${POSTS.slice(0, 3).map(postCard).join("")}</div>
+    </div>
+  </section>`;
+}
+
+function pageProducts(){
+  return `
+  <div class="wrap grid-pad">
+    <nav class="crumb"><a href="#/">Beranda</a> &gt; Paket AI CS WhatsApp</nav>
+    <h1 class="page-title">Pilihan Paket Balesin</h1>
+    <div class="cards" style="margin-top:28px">${PRODUCTS.map(pkgCard).join("")}</div>
+  </div>`;
+}
+
+let detailQty = 1;
+function pageDetail(p){
+  detailQty = 1;
+  const related = PRODUCTS.filter(x => x.id !== p.id).map(pkgCard).join("");
+  return `
+  <div class="wrap">
+    <nav class="crumb"><a href="#/">Beranda</a> &gt; <a href="#/produk">Paket AI CS WhatsApp</a> &gt; ${esc(p.name)}</nav>
+    <div class="pd">
+      <div class="pd-img"><img src="${p.img}" alt="${esc(p.name)}"></div>
+      <div>
+
+        <h1>${esc(p.name)}</h1>
+        <p class="sku">SKU : ${esc(p.sku)}</p>
+        <p class="price">${fmt(p.price)}</p>
+        <div class="qty" data-pid="${p.id}">
+          <button type="button" data-dq="-1" aria-label="Kurangi jumlah">−</button>
+          <span id="dQty" aria-live="polite">${detailQty}</span>
+          <button type="button" data-dq="1" aria-label="Tambah jumlah">+</button>
+        </div>
+        <div class="acts">
+          <button class="btn" type="button" data-add="${p.id}" data-useqty>Tambah ke Keranjang</button>
+          <button class="btn btn-solid" type="button" data-add="${p.id}" data-useqty data-go="checkout">Beli Sekarang</button>
+        </div>
+        <h3>Deskripsi Singkat</h3>
+        <p>${esc(p.short)}</p>
+        <p class="cat">Kategori: Paket AI CS WhatsApp</p>
+      </div>
+    </div>
+    <div class="desc">
+      <h2>Deskripsi Produk</h2>
+      <p>${esc(p.intro)}</p>
+      <p><strong>Isi paket:</strong></p>
+      <ul>${p.isi.map(i => `<li>${esc(i)}</li>`).join("")}</ul>
+      <p><strong>Cara kerja:</strong> ${esc(p.cara)}</p>
+      <p>Produk digital, tidak ada pengiriman barang. Garansi 7 hari uang kembali sesuai Kebijakan Refund.</p>
+    </div>
+    <div class="related">
+      <h2>Produk Terkait</h2>
+      <div class="cards">${related}</div>
+    </div>
+  </div>
+  <div class="sticky-bar">
+    <div class="t">Total<b id="stTotal">${fmt(p.price)}</b></div>
+
+    <button class="btn btn-solid" type="button" data-add="${p.id}" data-useqty data-go="checkout">Beli Sekarang</button>
+  </div>`;
+}
+
+function pageCart(){
+  const cart = getCart();
+  if(!cart.length){
+    return `
+    <div class="wrap">
+      <h1 class="page-title" style="margin-top:28px">Keranjang</h1>
+      ${emptyState("Keranjang masih kosong.")}
+    </div>`;
+  }
+  const rows = cart.map(i => {
+    const p = byId(i.id);
+    return `
+    <div class="ci">
+      <img src="${p.card}" alt="${esc(p.name)}">
+      <div>
+        <h3>${esc(p.name)}</h3>
+        <p class="unit">${fmt(p.price)}</p>
+        <div class="qty">
+          <button type="button" data-cq="${p.id}" data-d="-1" aria-label="Kurangi jumlah">−</button>
+          <span>${i.qty}</span>
+          <button type="button" data-cq="${p.id}" data-d="1" aria-label="Tambah jumlah">+</button>
+        </div>
+        <br><button class="rm" type="button" data-remove="${p.id}">Hapus</button>
+      </div>
+      <div class="sub-amt">${fmt(p.price * i.qty)}</div>
+    </div>`;
+  }).join("");
+  const total = cartTotal(cart);
+
+  return `
+  <div class="wrap">
+    <h1 class="page-title" style="margin-top:28px">Keranjang</h1>
+    <div class="layout2">
+      <div>${rows}</div>
+      <aside class="box">
+        <div class="sum"><span>Subtotal</span><span>${fmt(total)}</span></div>
+        <a class="btn btn-solid" href="#/checkout">Checkout</a>
+      </aside>
+    </div>
+  </div>
+  <div class="sticky-bar">
+    <div class="t">Total<b>${fmt(total)}</b></div>
+    <a class="btn btn-solid" href="#/checkout">Checkout</a>
+  </div>`;
+}
+
+function pageCheckout(){
+  const cart = getCart();
+  if(!cart.length){
+    return `
+    <div class="wrap">
+      <h1 class="page-title" style="margin-top:28px">Checkout</h1>
+      ${emptyState("Keranjang masih kosong.")}
+    </div>`;
+  }
+  const items = cart.map(i => {
+    const p = byId(i.id);
+    return `<li><span>${esc(p.label)} x${i.qty}</span><span>${fmt(p.price * i.qty)}</span></li>`;
+  }).join("");
+  return `
+  <div class="wrap">
+
+    <h1 class="page-title" style="margin-top:28px">Checkout</h1>
+    <div class="layout2">
+      <form id="checkoutForm" class="box" novalidate>
+        <div class="fg">
+          <label for="nama">Nama *</label>
+          <input id="nama" name="nama" autocomplete="name" required>
+          <span class="err"></span>
+        </div>
+        <div class="fg">
+          <label for="wa">Nomor WhatsApp *</label>
+          <input id="wa" name="wa" type="tel" inputmode="tel" autocomplete="tel" placeholder="08xxxxxxxxxx" required>
+          <span class="err"></span>
+        </div>
+        <div class="fg">
+          <label for="email">Email (opsional)</label>
+          <input id="email" name="email" type="email" autocomplete="email">
+          <span class="err"></span>
+        </div>
+        <div class="fg">
+          <label for="toko">Nama Toko / Usaha *</label>
+          <input id="toko" name="toko" autocomplete="organization" required>
+          <span class="err"></span>
+        </div>
+        <div class="fg">
+          <label for="watoko">Nomor WhatsApp toko yang akan dipasang AI (opsional)</label>
+          <input id="watoko" name="watoko" type="tel" inputmode="tel" placeholder="08xxxxxxxxxx">
+          <span class="err"></span>
+        </div>
+        <fieldset class="fg">
+          <legend>Metode pembayaran *</legend>
+          <label class="radio"><input type="radio" name="metode" value="transfer" checked><span>Transfer bank (BCA / BRI / Mandiri)</span></label>
+          <label class="radio"><input type="radio" name="metode" value="qris"><span>QRIS (DANA, OVO, GoPay, ShopeePay)</span></label>
+
+        </fieldset>
+        <div class="fg">
+          <label for="catatan">Catatan (opsional)</label>
+          <textarea id="catatan" name="catatan" rows="3"></textarea>
+        </div>
+        <button class="btn btn-solid btn-block" type="submit">Buat Pesanan</button>
+        <p class="small">Tanpa daftar akun. Konfirmasi pesanan lewat WhatsApp admin.</p>
+      </form>
+      <aside class="box">
+        <h2 class="h-sm">Ringkasan Pesanan</h2>
+        <ul class="sumlist">${items}</ul>
+        <div class="sum"><span>Total</span><span>${fmt(cartTotal(cart))}</span></div>
+      </aside>
+    </div>
+  </div>`;
+}
+
+function waOrderUrl(o){
+  const lines = ["Halo Balesin, saya sudah membuat pesanan.", `Kode pesanan: ${o.kode}`, "", "Item:"];
+  o.items.forEach(i => lines.push(`- ${i.name} x${i.qty} = ${fmt(i.subtotal)}`));
+  lines.push("", `Total: ${fmt(o.total)}`, `Nama: ${o.nama}`, `Nomor WhatsApp: ${o.wa}`, `Nama toko / usaha: ${o.toko}`);
+  if(o.email) lines.push(`Email: ${o.email}`);
+  if(o.waToko) lines.push(`Nomor WhatsApp toko: ${o.waToko}`);
+  lines.push(`Metode bayar: ${o.metode === "qris" ? "QRIS" : "Transfer bank"}`);
+  if(o.catatan) lines.push(`Catatan: ${o.catatan}`);
+  return waLink(lines.join("\n"));
+}
+
+function pageDone(){
+  const o = load("balesin_last", null);
+  if(!o){
+    return `
+
+    <div class="wrap empty">
+      <p>Belum ada pesanan.</p>
+      <a class="btn btn-solid" href="#/">Kembali ke Beranda</a>
+    </div>`;
+  }
+  const items = o.items.map(i => `<li><span>${esc(i.name)} x${i.qty}</span><span>${fmt(i.subtotal)}</span></li>`).join("");
+  const pay = o.metode === "qris"
+    ? `<div class="payqr" role="img" aria-label="Kode QRIS">QRIS</div><p>DANA, OVO, GoPay, ShopeePay</p>`
+    : `<p>Transfer ke: <strong>${esc(BANK)}</strong></p>`;
+  return `
+  <div class="wrap">
+    <h1 class="page-title" style="margin-top:28px">Pesanan Berhasil Dibuat</h1>
+    <div class="layout2">
+      <div class="box">
+        <p>Kode pesanan</p>
+        <div class="code">${esc(o.kode)}</div>
+        <h2 class="h-sm" style="margin-top:18px">Ringkasan</h2>
+        <ul class="sumlist">${items}</ul>
+        <div class="sum"><span>Total</span><span>${fmt(o.total)}</span></div>
+      </div>
+      <aside class="box">
+        <h2 class="h-sm">Cara Bayar</h2>
+        ${pay}
+        <p class="small" style="text-align:left">Kirim bukti transfer lewat WhatsApp untuk verifikasi.</p>
+        <a class="btn btn-wa btn-block" style="margin-top:14px" href="${waOrderUrl(o)}" target="_blank" rel="noopener">Kirim Pesanan ke WhatsApp</a>
+        <a class="btn btn-block" style="margin-top:10px" href="#/">Kembali ke Beranda</a>
+      </aside>
+    </div>
+  </div>`;
+}
+
+function pageAbout(){
+
+  return `
+  <div class="wrap grid-pad">
+    <h1 class="page-title" style="margin-top:28px">Tentang Balesin</h1>
+    <p class="page-sub">AI customer service untuk toko online dan UMKM Indonesia</p>
+    <h2 class="h-sm">Siapa kami</h2>
+    <p>Balesin adalah layanan customer service berbasis AI untuk toko online dan UMKM di Indonesia. Kami membantu penjual membalas chat WhatsApp dengan cepat dan konsisten tanpa harus menambah admin CS.</p>
+    <div class="mini-cards">
+      <div class="box"><h3>Visi</h3><p>Setiap UMKM bisa melayani pembeli secepat toko besar.</p></div>
+      <div class="box"><h3>Misi</h3><p>Menyediakan AI CS yang murah, mudah dipasang, dan tetap meneruskan percakapan penting ke pemilik toko.</p></div>
+    </div>
+    <p>Balesin dikembangkan sebagai proyek mata kuliah E-Commerce, Program Studi Bisnis Digital, UIN Salatiga.</p>
+  </div>`;
+}
+
+function pageContact(){
+  return `
+  <div class="wrap grid-pad">
+    <h1 class="page-title" style="margin-top:28px">Kontak Kami</h1>
+    <div class="two-col" style="margin-top:24px">
+      <div>
+        <div class="info-list" style="margin-bottom:24px">
+          <p><strong>Alamat:</strong> Salatiga, Jawa Tengah, Indonesia</p>
+          <p><strong>WhatsApp</strong> <a href="https://wa.me/6282278452926" target="_blank" rel="noopener">0822-7845-2926</a></p>
+        </div>
+        <form id="kontakForm" class="box" novalidate>
+          <div class="fg"><label for="k-nama">Nama *</label><input id="k-nama" name="nama" autocomplete="name" required><span class="err"></span></div>
+          <div class="fg"><label for="k-email">Email</label><input id="k-email" name="email" type="email" autocomplete="email"><span class="err"></span></div>
+          <div class="fg"><label for="k-wa">Nomor WhatsApp *</label><input id="k-wa" name="wa" type="tel" inputmode="tel" placeholder="08xxxxxxxxxx" required><span class="err"></span></div>
+          <div class="fg"><label for="k-toko">Nama Toko / Usaha</label><input id="k-toko" name="toko" autocomplete="organization"></div>
+          <div class="fg">
+            <label for="k-keperluan">Keperluan</label>
+            <select id="k-keperluan" name="keperluan">
+
+              <option>Konsultasi paket</option>
+              <option>Coba gratis 7 hari</option>
+              <option>Bantuan teknis</option>
+              <option>Lainnya</option>
+            </select>
+          </div>
+          <div class="fg"><label for="k-pesan">Pesan</label><textarea id="k-pesan" name="pesan" rows="4"></textarea></div>
+          <div class="fg">
+            <label class="check" style="font-weight:400;color:var(--text)">
+              <input type="checkbox" name="privasi" required>
+              <span>Saya menyetujui <a href="#/privasi">Kebijakan Privasi</a></span>
+            </label>
+            <span class="err"></span>
+          </div>
+          <button class="btn btn-solid btn-block" type="submit">Kirim Pesan</button>
+        </form>
+      </div>
+      <div>
+        <iframe class="map" title="Peta lokasi Salatiga" src="https://www.google.com/maps?q=Salatiga&output=embed" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+      </div>
+    </div>
+  </div>`;
+}
+
+function pageTips(){
+  return `
+  <div class="wrap grid-pad">
+    <nav class="crumb"><a href="#/">Beranda</a> &gt; Tips</nav>
+    <h1 class="page-title">Tips Jualan Online</h1>
+    <div class="cards" style="margin-top:28px">${POSTS.map(postCard).join("")}</div>
+  </div>`;
+}
+
+
+function pagePost(p){
+  const others = POSTS.filter(x => x.slug !== p.slug).slice(0, 3);
+  return `
+  <div class="wrap">
+    <nav class="crumb"><a href="#/">Beranda</a> &gt; <a href="#/tips">Tips</a> &gt; ${esc(p.title)}</nav>
+    <article class="article" style="padding:0;margin:0 auto">
+      <img src="${esc(p.img)}" alt="${esc(p.title)}">
+      <h1 class="page-title">${esc(p.title)}</h1>
+      <p class="meta" style="margin-bottom:20px">${esc(p.date)}</p>
+      ${renderBlocks(p.blocks)}
+    </article>
+    ${others.length ? `
+    <div style="margin:48px 0 72px">
+      <h2 class="h-sm">Artikel lain</h2>
+      <div class="cards">${others.map(postCard).join("")}</div>
+    </div>` : ""}
+  </div>`;
+}
+
+function pageLegal(key, title){
+  const blocks = (LEGAL && LEGAL[key]) || [];
+  return `
+  <div class="wrap">
+    <nav class="crumb"><a href="#/">Beranda</a> &gt; ${esc(title)}</nav>
+  </div>
+  <article class="article" style="padding-top:8px">
+    <h1 class="page-title">${esc(title)}</h1>
+    ${renderBlocks(blocks)}
+  </article>`;
+}
+
+
+/* ===== FORM HANDLERS ===== */
+function onCheckout(f){
+  const cart = getCart();
+  if(!cart.length){ location.hash = "#/keranjang"; return; }
+  const val = n => (f.elements[n] && f.elements[n].value || "").trim();
+
+  const errs = {};
+  const nama = val("nama");
+  if(!nama) errs.nama = "Nama wajib diisi.";
+  const wa = val("wa").replace(/[\s-]/g, "");
+  if(!wa) errs.wa = "Nomor WhatsApp wajib diisi.";
+  else if(!phoneOk(wa)) errs.wa = "Nomor harus diawali 08 atau 62 dan berisi 10 sampai 14 digit.";
+  const email = val("email");
+  if(email && !EMAIL_RE.test(email)) errs.email = "Format email belum benar.";
+  const toko = val("toko");
+  if(!toko) errs.toko = "Nama toko / usaha wajib diisi.";
+  const waToko = val("watoko").replace(/[\s-]/g, "");
+  if(waToko && !phoneOk(waToko)) errs.watoko = "Nomor harus diawali 08 atau 62 dan berisi 10 sampai 14 digit.";
+
+  ["nama","wa","email","toko","watoko"].forEach(n => setErr(f.elements[n], errs[n] || ""));
+  if(Object.keys(errs).length){
+    const first = f.querySelector(".fg.bad input");
+    if(first) first.focus();
+    return;
+  }
+
+  const metodeEl = f.elements.namedItem("metode");
+  const metode = metodeEl && metodeEl.value ? metodeEl.value : "transfer";
+
+  const items = cart.map(i => {
+    const p = byId(i.id);
+    return {id:p.id, name:p.name, qty:i.qty, price:p.price, subtotal:p.price * i.qty};
+
+  });
+
+  const order = {
+    kode: makeCode(),
+    tanggal: new Date().toISOString(),
+    items,
+    total: items.reduce((a, i) => a + i.subtotal, 0),
+    nama, wa, email, toko, waToko, metode,
+    catatan: val("catatan")
+  };
+
+  const orders = load("balesin_orders", []);
+  orders.push(order);
+  save("balesin_orders", orders);
+  save("balesin_last", order);
+  setCart([]);
+  location.hash = "#/selesai";
+}
+
+function makeCode(){
+  const d = new Date();
+  const yy = String(d.getFullYear()).slice(2);
+  const mm = String(d.getMonth() + 1).padStart(2, "0");
+  const dd = String(d.getDate()).padStart(2, "0");
+  const chars = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
+  let s = "";
+  for(let i = 0; i < 4; i++) s += chars[Math.floor(Math.random() * chars.length)];
+  return `BLS-${yy}${mm}${dd}-${s}`;
+}
+
+function onKontak(f){
+  const val = n => (f.elements[n] && f.elements[n].value || "").trim();
+
+  const errs = {};
+  if(!val("nama")) errs.nama = "Nama wajib diisi.";
+  const wa = val("wa").replace(/[\s-]/g, "");
+  if(!wa) errs.wa = "Nomor WhatsApp wajib diisi.";
+  else if(!phoneOk(wa)) errs.wa = "Nomor harus diawali 08 atau 62 dan berisi 10 sampai 14 digit.";
+  const email = val("email");
+  if(email && !EMAIL_RE.test(email)) errs.email = "Format email belum benar.";
+  if(!f.elements.privasi.checked) errs.privasi = "Centang persetujuan Kebijakan Privasi untuk melanjutkan.";
+
+  ["nama","wa","email","privasi"].forEach(n => setErr(f.elements[n], errs[n] || ""));
+  if(Object.keys(errs).length){
+    const first = f.querySelector(".fg.bad input");
+    if(first) first.focus();
+    return;
+  }
+
+  const msg = [
+    "Halo Balesin, saya ingin menghubungi tim Balesin.",
+    "",
+    `Nama: ${val("nama")}`,
+    `Email: ${email || "-"}`,
+    `Nomor WhatsApp: ${wa}`,
+    `Nama Toko / Usaha: ${val("toko") || "-"}`,
+    `Keperluan: ${val("keperluan")}`,
+    `Pesan: ${val("pesan") || "-"}`
+  ].join("\n");
+  window.open(waLink(msg), "_blank", "noopener");
+  f.reset();
+}
+
+function onNews(f){
+  const email = (f.elements.email.value || "").trim();
+
+  if(!EMAIL_RE.test(email)){
+    f.elements.email.focus();
+    toast("Masukkan email yang benar");
+    return;
+  }
+  window.open(waLink(`Halo Balesin, saya mau info promo. Email: ${email}`), "_blank", "noopener");
+  f.reset();
+}
+
+/* ===== EVENTS ===== */
+document.addEventListener("click", e => {
+  const t = e.target;
+
+  if(t.closest("#burger")){
+    const d = $("#drawer");
+    const open = d.classList.toggle("open");
+    $("#burger").setAttribute("aria-expanded", String(open));
+    return;
+  }
+
+  const add = t.closest("[data-add]");
+  if(add){
+    e.preventDefault();
+    let qty = 1;
+    if(add.hasAttribute("data-useqty")){
+      const el = $("#dQty");
+      if(el) qty = Math.max(1, Number(el.textContent) || 1);
+    }
+    addToCart(add.dataset.add, qty);
+    if(add.dataset.go) location.hash = "#/" + add.dataset.go;
+    return;
+  }
+
+
+  const dq = t.closest("[data-dq]");
+  if(dq){
+    const el = $("#dQty");
+    const n = Math.min(99, Math.max(1, Number(el.textContent) + Number(dq.dataset.dq)));
+    el.textContent = n;
+    const pid = dq.closest("[data-pid]").dataset.pid;
+    const st = $("#stTotal");
+    if(st) st.textContent = fmt(byId(pid).price * n);
+    return;
+  }
+
+  const cq = t.closest("[data-cq]");
+  if(cq){
+    const c = getCart();
+    const it = c.find(i => i.id === cq.dataset.cq);
+    if(it){
+      it.qty = Math.min(99, Math.max(1, it.qty + Number(cq.dataset.d)));
+      setCart(c);
+      render(true);
+    }
+    return;
+  }
+
+  const rm = t.closest("[data-remove]");
+  if(rm){
+    setCart(getCart().filter(i => i.id !== rm.dataset.remove));
+    render(true);
+    return;
+  }
+
+  const drawerLink = t.closest("#drawer a");
+
+  if(drawerLink) $("#drawer").classList.remove("open");
+});
+
+document.addEventListener("submit", e => {
+  const f = e.target;
+  if(f.id === "checkoutForm"){ e.preventDefault(); onCheckout(f); }
+  else if(f.id === "kontakForm"){ e.preventDefault(); onKontak(f); }
+  else if(f.id === "newsForm"){ e.preventDefault(); onNews(f); }
+});
+
+function clearFieldError(el){
+  const g = el.closest && el.closest(".fg");
+  if(g && g.classList.contains("bad")) setErr(el, "");
+}
+document.addEventListener("input", e => clearFieldError(e.target));
+document.addEventListener("change", e => clearFieldError(e.target));
+
+window.addEventListener("hashchange", () => render());
+render();
+updateBadge();
+</script>
+</body>
+</html>
